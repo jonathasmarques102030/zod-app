@@ -4,8 +4,8 @@ import { z } from "zod";
 
 const formSignUp = z
   .object({
-    name: z.string(),
-    email: z.string().email({ message: 'Email inválido' }),
+    name: z.string().min(8, { message: 'O nome precisa ter mais de 8 digitos.' }),
+    email: z.string().email({ message: 'Email inválido' }).toLowerCase(),
     phone: z.string(),
     password: z.string(),
     confirmPassword: z.string(),
@@ -59,6 +59,7 @@ const Form: React.FC = () => {
             required
           />
         </div>
+        {errors.name && <p className="error">{errors.name}</p>}
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -69,6 +70,7 @@ const Form: React.FC = () => {
             required
           />
         </div>
+        {errors.email && <p className="error">{errors.email}</p>}
         <div className="form-group">
           <label htmlFor="phone">Telefone</label>
           <input
